@@ -2,7 +2,7 @@ from pymongo import MongoClient
 import argparse
 from initialization import is_initialized, set_master_password
 from crud_operations import add_details, get_details, delete_details
-
+from vault import create_vault, load_vault
 
 uri = "mongodb+srv://adityasuryawanshi4040_db_user:Iamadam4040@pythonpract.hncczo8.mongodb.net/?appName=PythonPract"
 
@@ -24,7 +24,12 @@ get_parser.add_argument("gmail")
 delete_parser = subparsers.add_parser("delete")
 delete_parser.add_argument("gmail")
 
+create_v = subparsers.add_parser("create_vault") 
+# create_vault.add_argument("create_vault")
+load_v = subparsers.add_parser("load_v")
 args = parser.parse_args()
+
+
 
 
 
@@ -41,8 +46,11 @@ if args.command == "get":
 if args.command == "delete": 
     delete_details(args, db)
 
+if args.command == "create_vault": 
+    create_vault(db)
 
-
+if args.command == "load_v": 
+    load_vault(db)
 
 
 

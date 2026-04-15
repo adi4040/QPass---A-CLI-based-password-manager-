@@ -46,3 +46,33 @@ def decrypt_password(passwd, encrypted_pass, salt):
     return decrypted_data
 
 
+
+def encrypt_data(master_pass, list_of_dict, salt):
+
+    encrypted_list = []
+
+    for dictionary in list_of_dict:
+
+        encrypted_dict = {}
+
+        for key, value in dictionary.items():
+            encrypted_dict[key] = encrypt_password(master_pass, value, salt)
+
+        encrypted_list.append(encrypted_dict)
+
+    return encrypted_list
+
+def decrypt_data(master_pass, list_of_dict, salt):
+
+    decrypted_list = []
+
+    for dictionary in list_of_dict:
+
+        decrypted_dict = {}
+
+        for key, value in dictionary.items():
+            decrypted_dict[key] = decrypt_password(master_pass, value, salt)
+
+        decrypted_list.append(decrypted_dict)
+
+    return decrypted_list

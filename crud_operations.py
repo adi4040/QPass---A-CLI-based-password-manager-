@@ -1,39 +1,57 @@
 from crypto import encrypt_password, decrypt_password
 from getpass import getpass
 from auth import authenticate_master_pass
+from vault import load_vault, save_vault
+
 
 def find_by_email(email, db): 
 
     qpass = db.passwords.find_one(
         {"gmail" : email}
     )      
-    return qpass
 
+    return qpass
 
 
 def add_details(args, db): 
     
-    check_mail = find_by_email(args.gmail, db)
-    if check_mail : 
-        print("Mail already exists..")
+    # check_mail = find_by_email(args.gmail, db)
+    # if check_mail : 
+    #     print("Mail already exists..")
 
-    else:   
+    # else:   
+    #     config = db.config.find_one({"type" : "master_config"})
+    #     salt = config['salt']
 
-        config = db.config.find_one({"type" : "master_config"})
-        salt = config['salt']
+    #     #for now we'll be asking user the master password everytime he performs the operation
+    #     master_password = getpass("Enter master password: ")
+    #     master = authenticate_master_pass(db, master_password)
+    #     encrypted_password = encrypt_password(master_password, args.password, salt)
 
-        #for now we'll be asking user the master password everytime he performs the operation
-        master_password = getpass("Enter master password: ")
-        encrypted_password = encrypt_password(master_password, args.password, salt)
 
-        data = {
-            "gmail" : args.gmail, 
-            "pass" : encrypted_password
-        }
 
-        db.passwords.insert_one(data)
+    #     if master == "verified" : 
+    #         data = {
+    #             "gmail" : args.gmail, 
+    #             "pass" : encrypted_password
+    #         }
 
-        print(f"QPass: Password added for gmail {args.gmail}")
+    #         db.passwords.insert_one(data)
+
+    #         print(f"QPass: Password added for gmail {args.gmail}")
+        
+    #     else: 
+    #         print("Authentication failed")
+
+    master_pass = getpass("Enter master password: ")
+
+    loaded_data = load_vault(db, master_pass)
+    new_data = {
+        args.gmail : args.password
+    }
+
+    loaded_data.append(new_data)
+    save_vault(loaded_data, db, master_pass)
 
 
 def get_details(args, db): 
@@ -45,17 +63,23 @@ def get_details(args, db):
 
         #for now we'll be asking user the master password everytime he performs the operation
         master_password = getpass("Enter master password: ")
-        data = db.passwords.find_one(
-            {
-                "gmail" : args.gmail
-            }
-        )
+        master = authenticate_master_pass(db, master_password)
 
-        password = data['pass']
-        decrypted_password = decrypt_password(master_password, password, salt)
-        data['pass'] = decrypted_password
-        del data["_id"]
-        print(data)
+        if master == "verified" : 
+            data = db.passwords.find_one(
+                {
+                    "gmail" : args.gmail
+                }
+            )
+
+            password = data['pass']
+            decrypted_password = decrypt_password(master_password, password, salt)
+            data['pass'] = decrypted_password
+            del data["_id"]
+            print(data)
+
+        else: 
+            print("Authentication failed")
 
     else : 
         print("Mail doesn't exists..")
@@ -66,7 +90,8 @@ def delete_details(args, db):
     check_mail = find_by_email(args.gmail, db)
     if check_mail : 
 
-        master = authenticate_master_pass(db)
+        master_password = getpass("Enter master password: ")
+        master = authenticate_master_pass(db, master_password)
 
         if master == "verified" : 
         
@@ -75,7 +100,7 @@ def delete_details(args, db):
                     {"gmail":args.gmail}
                 )
                 print(f"Details of gmail : {args.gmail} deleted successfully")
-                
+
             except Exception as e: 
                 print(f"error : {e}")
         else: 
@@ -83,3 +108,5 @@ def delete_details(args, db):
 
     else: 
         print("Mail doesn't exist..!")
+
+
