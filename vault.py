@@ -23,7 +23,7 @@ def load_vault(db, master_pass):
     vault = db.config.find_one({"type":"vault"})
     if not vault: 
         print("Please create a vault using 'create_vault' ")
-
+    
     else:
 
         master = db.config.find_one({"type":"master_config"})
