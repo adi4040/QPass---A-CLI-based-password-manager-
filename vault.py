@@ -1,6 +1,8 @@
 import json 
 from crypto import encrypt_password, decrypt_password, decrypt_data, encrypt_data
 from bson import ObjectId
+from session_configs import SESSION
+from cryptography.fernet import Fernet, InvalidToken
 
 def create_vault(db): 
     
@@ -18,7 +20,7 @@ def create_vault(db):
 
     print("Vault Successfully Created!")
 
-def load_vault(db, master_pass): 
+def load_vault(db): 
 
     vault = db.config.find_one({"type":"vault"})
     if not vault: 
@@ -35,16 +37,18 @@ def load_vault(db, master_pass):
             return data
         
         else: 
-            decrypted_data = decrypt_data(master_pass, data, salt)
+            decrypted_data = decrypt_data(data)
             print("Vault loaded..")
             return decrypted_data
+        
 
-def save_vault(data, db, master_password): 
+
+def save_vault(data, db): 
 
     vault = []
     vault.extend(data)
     salt = db.config.find_one({"type":"master_config"})["salt"]
-    encrypted_vault_data = encrypt_data(master_password, vault, salt)
+    encrypted_vault_data = encrypt_data(vault)
     vault_id = db.config.find_one({"type":"vault"})["_id"]
     
     db.config.update_one(
@@ -54,8 +58,5 @@ def save_vault(data, db, master_password):
 
     print("Vault saved...")
 
-
-# def save_vault(db): 
-#     pass
 
 
