@@ -5,8 +5,6 @@ from vault import load_vault, save_vault
 
 
 def find_by_site(site, db): 
-
-
     vault = db.config.find_one({"type":"vault"})
     data = vault["data"]
 
@@ -17,11 +15,7 @@ def find_by_site(site, db):
     
 
 
-
-
-
 def add_details(args, db): 
-    
     site_to_add = args.site
 
     if find_by_site(site_to_add, db):
@@ -37,16 +31,13 @@ def add_details(args, db):
     save_vault(loaded_data, db)
 
 
-def get_details(db): 
 
+def get_details(db): 
     loaded_data = load_vault(db)
     print(loaded_data)
 
 
-
-
 def get_vault_details(args, db): 
-
     loaded_data = load_vault(db)
     site = args.site
     for d in loaded_data:
@@ -59,14 +50,11 @@ def get_vault_details(args, db):
                 return
     
 
-
 def delete_details(args, db): 
-
     site_to_del = args.site
     if not find_by_site(site_to_del, db):
         print("Site doesn't exists..")
         return 
-    
 
     # master_pass = getpass("Enter master password: ")
 
