@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "quick-pass"
-version = "0.1.0"
+version = "0.2.0"
 description = "Secure CLI-based password manager with encryption and MongoDB support"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -18,7 +18,8 @@ keywords = ["password-manager", "cli", "security", "encryption", "mongodb"]
 
 dependencies = [
     "cryptography",
-    "pymongo"
+    "pymongo",
+    "prompt_toolkit"
 ]
 
 

@@ -13,6 +13,26 @@ from .auth import login, logout
 from .session_configs import SESSION
 from .check_mongo import get_mongo_uri, save_mongo_uri
 
+from prompt_toolkit.completion import WordCompleter
+from prompt_toolkit import prompt
+
+COMMANDS = [
+    "ulogin",
+    "ulogout",
+    "add",
+    "delete",
+    "get_vault",
+    "get_site",
+    "create_vault",
+    "load_vault",
+    "add_mongo_uri",
+    "help",
+    "clear",
+    "exit"
+]
+
+command_completer = WordCompleter(COMMANDS, ignore_case=True)
+
 
 def spinner_running(flag):
     symbols = ['|', '/', '-', '\\']
@@ -33,7 +53,7 @@ def setup_mongo():
         link_text = "Click here"
         formatted_link = f"\033]8;;{url}\033\\{link_text}\033]8;;\033\\"
 
-        print(f"First-time setup: {formatted_link} to set up MongoDB Atlas")
+        print(f"Aditya Suryawanshi(Author) welcomes you!\nFirst-time setup: {formatted_link} to set up MongoDB Atlas")
 
         while True:
             uri = input("Enter your MongoDB URI: ").strip()
@@ -68,12 +88,13 @@ def setup_mongo():
         print("Connected to MongoDB")
         return client
     except Exception:
-        print("Stored Mongo URI is invalid. Resetting...")
+        print("Stored Mongo URI is invalid. Please enter again.")
+
         config_path = Path.home() / ".qpass_config.json"
         if config_path.exists():
             config_path.unlink()
-        print("Restart QPass and enter a valid URI.")
-        sys.exit()
+
+        return setup_mongo()
 
 
 
@@ -110,12 +131,12 @@ def show_banner():
         Q P A S S
 
 QPass - Secure Password Manager
+Author: Aditya Suryawanshi
 
 Status: {status}
 
 Type 'help' for commands | 'exit' to quit
 """)
-
 
 
 def update_mongo_uri(new_uri):
@@ -230,7 +251,7 @@ def main():
 
     while True:
         try:
-            command = input("qpass> ").strip()
+            command = prompt("qpass> ", completer=command_completer).strip()
 
             if not command:
                 continue

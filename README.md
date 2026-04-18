@@ -23,7 +23,7 @@
 
 ---
 
-## ✨ What is QPass?
+## What is QPass?
 
 **QPass** is a lightweight, terminal-first password manager that keeps your credentials safe using industry-standard encryption — all stored securely in MongoDB. No browser plugins. No cloud accounts. Just you, your terminal, and your encrypted vault.
 
@@ -31,7 +31,7 @@
 
 ---
 
-## 🚀 Features
+## Features
 
 | Feature | Description |
 |---|---|
@@ -44,7 +44,7 @@
 
 ---
 
-## 📦 Installation
+## Installation
 
 ```bash
 pip install quick-pass
@@ -54,7 +54,7 @@ pip install quick-pass
 
 ---
 
-## ⚡ Quick Start
+## Quick Start
 
 ```bash
 # Launch QPass
@@ -95,7 +95,7 @@ ulogout
 
 ---
 
-## 🔐 How Encryption Works
+## How Encryption Works
 
 QPass uses a **two-layer security model**:
 
@@ -122,7 +122,7 @@ Master Password
 
 ---
 
-## 🧱 Tech Stack
+## Tech Stack
 
 ```
 ┌─────────────────────────────────────────┐
@@ -136,7 +136,7 @@ Master Password
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 qpass/
@@ -155,17 +155,18 @@ qpass/
 
 ---
 
-## 🔧 Requirements
+## Requirements
 
 ```
 pymongo
 cryptography
+prompt_toolkit
 ```
 
 Install them manually:
 
 ```bash
-pip install pymongo cryptography
+pip install pymongo cryptography prompt_toolkit
 ```
 
 ---
@@ -174,10 +175,10 @@ pip install pymongo cryptography
 
 Contributions are welcome! Feel free to:
 
-1. 🍴 Fork the repository
-2. 🌿 Create a feature branch: `git checkout -b feature/cool-thing`
-3. 💾 Commit your changes: `git commit -m "Add cool thing"`
-4. 📤 Push and open a Pull Request
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/cool-thing`
+3. Commit your changes: `git commit -m "Add cool thing"`
+4. Push and open a Pull Request
 
 ---
 
