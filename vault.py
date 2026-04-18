@@ -21,7 +21,6 @@ def create_vault(db):
     print("Vault Successfully Created!")
 
 def load_vault(db): 
-
     vault = db.config.find_one({"type":"vault"})
     if not vault: 
         print("Please create a vault using 'create_vault' ")
@@ -30,8 +29,7 @@ def load_vault(db):
 
         master = db.config.find_one({"type":"master_config"})
         salt = master['salt']
-        del vault["_id"]
-        
+        del vault["_id"]      
         data = vault["data"]
         if not data : 
             return data

@@ -74,7 +74,6 @@ def decrypt_data(list_of_dict):
         decrypted_dict = {}
 
         for key, value in dictionary.items():
-
             session_key = SESSION['key']
             f = Fernet(session_key)
             value = f.decrypt(value).decode() 
@@ -82,6 +81,7 @@ def decrypt_data(list_of_dict):
             # decrypted_dict[key] = decrypt_password(master_pass, value, salt)
 
         decrypted_list.append(decrypted_dict)
+        
 
     return decrypted_list
 
