@@ -47,7 +47,7 @@
 ## 📦 Installation
 
 ```bash
-pip install qpass
+pip install quick-pass
 ```
 
 > Requires Python 3.8+ and a running MongoDB instance (local or Atlas).
