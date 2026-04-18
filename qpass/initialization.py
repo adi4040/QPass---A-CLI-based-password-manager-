@@ -1,6 +1,6 @@
 from getpass import getpass
 import os
-from crypto import encrypt_password
+from .crypto import encrypt_password
 
 
 def is_initialized(db): 

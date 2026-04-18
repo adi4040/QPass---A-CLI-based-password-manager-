@@ -1,7 +1,7 @@
-from crypto import encrypt_password, decrypt_password
+from .crypto import encrypt_password, decrypt_password
 from getpass import getpass
-from auth import authenticate_master_pass
-from vault import load_vault, save_vault
+from .auth import authenticate_master_pass
+from .vault import load_vault, save_vault
 
 
 def find_by_site(site, db): 

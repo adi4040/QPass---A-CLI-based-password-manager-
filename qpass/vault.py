@@ -1,7 +1,7 @@
 import json 
-from crypto import encrypt_password, decrypt_password, decrypt_data, encrypt_data
+from .crypto import encrypt_password, decrypt_password, decrypt_data, encrypt_data
 from bson import ObjectId
-from session_configs import SESSION
+from .session_configs import SESSION
 from cryptography.fernet import Fernet, InvalidToken
 
 def create_vault(db): 

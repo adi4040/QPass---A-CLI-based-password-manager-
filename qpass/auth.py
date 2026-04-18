@@ -1,6 +1,6 @@
 from getpass import getpass
-from crypto import decrypt_password, encrypt_password, derive_key
-from session_configs import SESSION, TIME_OUT
+from .crypto import decrypt_password, encrypt_password, derive_key
+from .session_configs import SESSION, TIME_OUT
 from cryptography.fernet import Fernet, InvalidToken
 from getpass import getpass
 import time

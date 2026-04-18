@@ -1,7 +1,7 @@
 import hashlib
 import base64
 from cryptography.fernet import Fernet
-from session_configs import SESSION
+from .session_configs import SESSION
 def encrypt_password(passwd, string, salt):
 
     # Step 1: Derive key using KDF (PBKDF2)
