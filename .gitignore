@@ -1,3 +1,9 @@
-qpass_venv/
-venv/
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+qpass_venv/
+dist/
+build/
+*.egg-info/
